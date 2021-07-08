@@ -1,0 +1,11 @@
+/* @import '../../../node_modules/bootstrap/dist/css/bootstrap.css'; */
+
+.outer{
+    border: 2px solid black;
+    border-radius: 5px ;
+}
+
+.outer .panel-heading {
+    background-color: #dfdfdf;
+    border-bottom: 1px solid gray;
+}

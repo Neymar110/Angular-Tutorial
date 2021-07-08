@@ -1,0 +1,16 @@
+<i (click) = "change()" [class.bi-award] = "!clicked" [class.bi-award-fill] = "clicked"></i>
+
+<div *ngIf="this.clicked; then coursesList else noCourses"></div>
+<ng-template #coursesList>
+    List of courses
+</ng-template>
+<ng-template #noCourses>
+    No courses
+</ng-template>
+
+<!-- <div [hidden] = '!clicked'>
+    List of courses
+</div>
+<div [hidden] = "clicked">
+    No courses
+</div> -->
