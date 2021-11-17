@@ -1,0 +1,6 @@
+<mat-form-field appearance="fill">
+    <mat-label>Select an option</mat-label>
+    <mat-select disableRipple value = "1">
+      <mat-option *ngFor = "let item of items"value="1">{{ item }}</mat-option>
+    </mat-select>
+  </mat-form-field>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "firestore-tutorial-database": {
+      "hosting": {
+        "Firestore-tutorial": [
+          "firestore-tutorial-database"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "firestore-tutorial-database"
+  }
+}

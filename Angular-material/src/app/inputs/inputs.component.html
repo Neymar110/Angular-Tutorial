@@ -1,0 +1,11 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Favorite food</mat-label>
+        <input matInput ngModel #username  = "ngModel" submit = "log(x)" name = "food" placeholder="Ex. Chapati" value="Sushi" required >
+        <mat-hint>Whats yr favorite food?</mat-hint>
+        <span matSuffix>is my favorite food.</span>
+        <mat-error *ngIf ="username.invalid">This field is required</mat-error>
+    </mat-form-field>
+</form>
+
+<div username.></div>
