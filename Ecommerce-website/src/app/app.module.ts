@@ -15,6 +15,11 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { LoginComponent } from './login/login.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { AngularFireModule } from "@angular/fire/compat";
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -31,6 +36,7 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([
@@ -39,12 +45,15 @@ import { LoginComponent } from './login/login.component';
       {path : "shopping-cart", component:ShoppingCartComponent},
       {path : "check-out", component:CheckoutComponent},
       {path : "oder-success", component:OrderSuccessComponent},
+      {path : "my/orders", component: MyOrdersComponent},
       {path : "login", component:LoginComponent},
       {path : "admin/products", component:AdminProductsComponent},
       {path : "admin/orders", component:AdminOrdersComponent}
-    ])
+    ]),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth())
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

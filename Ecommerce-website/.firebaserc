@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "ecommerce-website-99217"
+  },
+  "targets": {
+    "ecommerce-website-99217": {
+      "hosting": {
+        "Ecommerce-website": [
+          "ecommerce-website-99217"
+        ]
+      }
+    }
+  }
+}

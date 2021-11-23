@@ -13,18 +13,19 @@
     </div>
   
     <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" routerLink="/">
-          Home
-        </a>
-  
+      <div class="navbar-start">  
         <a class="navbar-item" routerLink="/shopping-cart">
           Shopping Cart
         </a>
-  
-        <div class="navbar-item has-dropdown is-hoverable">
+        <ng-template #anonymousUser >
+          <a class="navbar-item" routerLink="/login">
+            Login
+          </a>
+      </ng-template>
+
+        <div *ngIf = "auth.user$ | async as user; else anonymousUser"class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
-            Username
+            {{ user.displayName }}
           </a>
   
           <div class="navbar-dropdown">
@@ -37,7 +38,7 @@
             <a class="navbar-item"routerLink="/admin/products">
               Manage Products
             </a>
-            <a class="navbar-item">
+            <a class="navbar-item" (click)="logout()">
                 Log Out
               </a>
           </div>
