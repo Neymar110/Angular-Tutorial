@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router, UrlTree } from '@angular/router';
+import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Ecommerce-website';
+  constructor(private userService: UserService, private auth : AuthService, router : Router) {
+    auth.user$.subscribe(user => {
+      if (user) {
+        this.userService.save(user);
+
+        let returnUrl: string | UrlTree = localStorage.getItem('returnUrl') as string;
+        router.navigateByUrl(returnUrl);
+      }
+    })
+  };
 }

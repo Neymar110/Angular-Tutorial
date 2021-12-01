@@ -23,21 +23,24 @@
           </a>
       </ng-template>
 
-        <div *ngIf = "auth.user$ | async as user; else anonymousUser"class="navbar-item has-dropdown is-hoverable">
+        <div *ngIf = "appUser; else anonymousUser"class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
-            {{ user.displayName }}
+            {{ appUser.name }}
           </a>
   
           <div class="navbar-dropdown">
             <a class="navbar-item"routerLink="/my/orders" >
               My Orders
             </a>
-            <a class="navbar-item"routerLink="/admin/orders">
-              Manage Orders
-            </a>
-            <a class="navbar-item"routerLink="/admin/products">
-              Manage Products
-            </a>
+            <ng-container *ngIf="appUser.isAdmin" >
+              <a class="navbar-item"routerLink="/admin/orders">
+                Manage Orders
+              </a>
+              <a class="navbar-item"routerLink="/admin/products">
+                Manage Products
+              </a>
+            </ng-container>
+            
             <a class="navbar-item" (click)="logout()">
                 Log Out
               </a>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +21,13 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { AngularFireModule } from "@angular/fire/compat";
 import { AuthService } from './auth.service';
+import { AuthGuardService as AuthGuard } from './auth-guard.service';
+import { UserService } from './user.service';
+import { AdminAuthGuardService as AdminAuthGuard } from './admin-auth-guard.service';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CategoryService } from './category.service';
+import { ProductService } from './product.service';
 
 @NgModule({
   declarations: [
@@ -32,28 +40,39 @@ import { AuthService } from './auth.service';
     OrderSuccessComponent,
     MyOrdersComponent,
     AdminProductsComponent,
-    AdminOrdersComponent
+    AdminOrdersComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     RouterModule.forRoot([
       {path : "", component:HomeComponent},
-      {path : "products", component:ProductsComponent},
-      {path : "shopping-cart", component:ShoppingCartComponent},
-      {path : "check-out", component:CheckoutComponent},
-      {path : "oder-success", component:OrderSuccessComponent},
-      {path : "my/orders", component: MyOrdersComponent},
       {path : "login", component:LoginComponent},
-      {path : "admin/products", component:AdminProductsComponent},
-      {path : "admin/orders", component:AdminOrdersComponent}
+      {path : "shopping-cart", component:ShoppingCartComponent},
+      {path : "admin/products/new", component:ProductFormComponent, canActivate:[ AuthGuard, AdminAuthGuard ]},
+      {path : "check-out", component:CheckoutComponent, canActivate:[ AuthGuard ]},
+      {path : "my/orders", component: MyOrdersComponent, canActivate:[ AuthGuard ]},
+      {path : "order-success", component:OrderSuccessComponent, canActivate:[ AuthGuard ]},
+      {path : "products", component:ProductsComponent},
+      {path : "admin/orders", component:AdminOrdersComponent, canActivate:[ AuthGuard, AdminAuthGuard ]},
+      {path : "admin/products", component:AdminProductsComponent, canActivate:[ AuthGuard, AdminAuthGuard ]},
     ]),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
+    FontAwesomeModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    AuthGuard,
+    UserService,
+    AdminAuthGuard,
+    CategoryService,
+    ProductService  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
