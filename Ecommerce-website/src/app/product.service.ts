@@ -11,4 +11,8 @@ export class ProductService {
     // This pushes the object into the firebase database
     return this.db.list("/products").push(product);
   }
+
+  getAll(){
+    return this.db.list("/products");
+  }
 }

@@ -28,6 +28,9 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CategoryService } from './category.service';
 import { ProductService } from './product.service';
+import { TestDirectiveDirective } from './test-directive.directive';
+import { ProductValidatorDirective } from './admin/product-form/product-validator.directive';
+import { ImageUrlValidatorDirective } from './admin/product-form/image-url-validator.directive';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import { ProductService } from './product.service';
     MyOrdersComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    TestDirectiveDirective,
+    ProductValidatorDirective,
+    ImageUrlValidatorDirective
   ],
   imports: [
     BrowserModule,
