@@ -1,13 +1,19 @@
 {
-  "hosting": {
-    "public": "dist/Ecommerce-website",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-  },
   "database": {
     "rules": "database.rules.json"
-  }
+  },
+  "hosting": [
+    {
+      "public": "dist/Ecommerce-website",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    },
+    {
+      "target": "Ecommerce-website",
+      "public": "dist/Ecommerce-website"
+    }
+  ]
 }

@@ -10,7 +10,6 @@ export class CategoryService {
 
   getCategories() {
     // Getting the values in the categories object in the database
-    // Also misspelled category in the database, thus the caregory >_<
-    return this.db.list("/caregories", x => x.orderByChild("name")).snapshotChanges();
+    return this.db.list("/categories", x => x.orderByChild("name")).snapshotChanges();
   }
 }

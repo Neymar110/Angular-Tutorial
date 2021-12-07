@@ -31,6 +31,10 @@ import { ProductService } from './product.service';
 import { TestDirectiveDirective } from './test-directive.directive';
 import { ProductValidatorDirective } from './admin/product-form/product-validator.directive';
 import { ImageUrlValidatorDirective } from './admin/product-form/image-url-validator.directive';
+import { MatTableModule } from '@angular/material/table';
+import { AngularMaterialTableComponent } from './angular-material-table/angular-material-table.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,8 @@ import { ImageUrlValidatorDirective } from './admin/product-form/image-url-valid
     ProductFormComponent,
     TestDirectiveDirective,
     ProductValidatorDirective,
-    ImageUrlValidatorDirective
+    ImageUrlValidatorDirective,
+    AngularMaterialTableComponent
   ],
   imports: [
     BrowserModule,
@@ -59,17 +64,21 @@ import { ImageUrlValidatorDirective } from './admin/product-form/image-url-valid
       {path : "", component:HomeComponent},
       {path : "login", component:LoginComponent},
       {path : "shopping-cart", component:ShoppingCartComponent},
-      {path : "admin/products/new", component:ProductFormComponent, canActivate:[ AuthGuard, AdminAuthGuard ]},
       {path : "check-out", component:CheckoutComponent, canActivate:[ AuthGuard ]},
       {path : "my/orders", component: MyOrdersComponent, canActivate:[ AuthGuard ]},
       {path : "order-success", component:OrderSuccessComponent, canActivate:[ AuthGuard ]},
       {path : "products", component:ProductsComponent},
-      {path : "admin/orders", component:AdminOrdersComponent, canActivate:[ AuthGuard, AdminAuthGuard ]},
+      {path : "admin/products/new", component:ProductFormComponent, canActivate:[ AuthGuard, AdminAuthGuard ]},
+      {path : "admin/products/:id", component:ProductFormComponent, canActivate:[ AuthGuard, AdminAuthGuard ]},
       {path : "admin/products", component:AdminProductsComponent, canActivate:[ AuthGuard, AdminAuthGuard ]},
+      {path : "admin/orders", component:AdminOrdersComponent, canActivate:[ AuthGuard, AdminAuthGuard ]}
     ]),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     AuthService,

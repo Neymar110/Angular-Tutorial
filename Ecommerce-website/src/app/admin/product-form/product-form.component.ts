@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { CategoryService } from 'src/app/category.service';
 import { ProductService } from 'src/app/product.service';
+import { take } from 'rxjs/operators';
+import { ProductModel } from 'src/app/models/product-model.model';
+
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
@@ -12,26 +14,58 @@ import { ProductService } from 'src/app/product.service';
 export class ProductFormComponent {
   // The dollar sign indicates that this variable is an observable
   categories$:any;
+  product = {
+    price: 0,
+    title: "",
+    imageUrl: "",
+    category: "",
+  };
+  id:any;
 
   constructor(
 
     private router : Router,
+    private route : ActivatedRoute,
     categoryService : CategoryService, 
-    private productService : ProductService) {
+    private productService : ProductService,) {
     
       categoryService.getCategories().subscribe( data => {
       this.categories$ = data.map(x => {
         return x.payload.val();
       });
     })    
+
+    this.id = this.route.snapshot.paramMap.get("id");
+    
+    if (this.id) {
+      this.productService.getProduct(this.id).pipe(take(1)).subscribe(p => this.product = p as ProductModel)
+    }
   }
 
   dlr = faDollarSign;
 
   save(product:object){
-    this.productService.create(product);
+
+    if(this.id){
+      this.productService.update(this.id, product)
+    }
+
+    else {
+      this.productService.create(product);
+    }
+
     this.router.navigate(["/admin/products"]);
   }
+
+  delete() {
+    if (!confirm("Are you sure you want to delete this product?")) return; 
+      
+      this.productService.delete(this.id);
+      this.router.navigate(["/admin/products"]);
+      
+  }
+
+  
 
 
 }

@@ -1,20 +1,30 @@
-<p>
-    <a routerLink="/admin/products/new" class="button is-primary">New Product</a>
-</p>
+<div class="container">
+    <p>
+        <input #query (keyup)="filter(query.value)"  type="text" class = "form-control" placeholder="Search...">
+    </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Price</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor = "let p of products$ | async">
-            <td>{{ p.title }}</td>
-            <td>{{ p.price }}</td>
-            <td><a [routerLink]="['admin/products/', p.$key]" >Edit</a></td>
-        </tr>
-    </tbody>
-</table>
+    <!-- <table mat-table [dataSource]="filteredProducts" class="mat-elevation-z8"> -->
+
+        <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+        <!-- Position Column -->
+        <!-- <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        </ng-container> -->
+    
+        <!-- Name Column -->
+        <!-- <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+        </ng-container>
+
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>-->
+</div> 
+<!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
+<button class = "button is-primary"  [routerLink]="['/admin/products/new']" >New Product</button>
+<app-angular-material-table  [setData] = 'filteredProducts'></app-angular-material-table>
