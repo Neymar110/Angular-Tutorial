@@ -57,9 +57,15 @@ export class AngularMaterialTableComponent implements AfterViewInit {
   
   @Input() set setData(data: any[]){
     this.dataToUse = data;
-    this.dataSource = new MatTableDataSource(this.dataToUse);
+    let tempSort: Sort = {
+      active: "",
+      direction: ""
+    };
+    // this.sortedData = data;
+    this.sortData(tempSort)
+    this.dataSource = new MatTableDataSource(this.sortedData);
     this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.sort;
     // console.log(this.dataSource.data);
   };
 
@@ -121,7 +127,7 @@ export class AngularMaterialTableComponent implements AfterViewInit {
           return 0;
       }
     });
-    console.log(this.sortedData);
+    // console.log(this.sortedData);
     
   }
 }
