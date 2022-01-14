@@ -1,1 +1,48 @@
-<p>products works!</p>
+<div class="columns">
+    <div class="column is-3">
+        <div class="table-container">
+            <table class="table is-hoverable is-bordered">
+                <tbody>
+                    <tr>
+                        <td routerLink="/" [class.is-selected] = "!category"><a>All</a></td>
+                    </tr>
+                    <tr *ngFor = "let c of categories$" [class.is-selected] = "category === c.$key">
+                        <td routerLink="/" [queryParams]="{ category:c.$key }">
+                            <a> {{ c.name }} </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+</div>
+
+<div class = "columns is-multiline main">
+    <div 
+    *ngFor = "let p of filteredProducts "
+    class="column card is-one-third">
+        <div class="card-image">
+            <figure class="image is-4by3">
+                <img [src]="p.imageUrl" alt="Placeholder image">
+            </figure>
+        </div>
+        
+    <div class="card-content">
+        <div class="media">
+            <div class="media-left">
+            </div>
+            <div class="media-content">
+            <p class="title is-4">{{ p.title }}</p>
+            <p class="subtitle is-6">{{ p.category }}</p>
+            </div>
+        </div>
+
+        <div class="content">
+            {{ p.price | currency:"USD" :true }}
+            <br>
+        </div>
+    </div>
+    <footer class="card-footer">
+        <a href="" class="card-footer-item">Add to cart</a>
+    </footer>
+    </div>
+</div>

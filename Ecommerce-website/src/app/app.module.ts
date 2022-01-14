@@ -61,7 +61,7 @@ import { MatSortModule } from '@angular/material/sort';
     BrowserAnimationsModule,
     FormsModule,
     RouterModule.forRoot([
-      {path : "", component:HomeComponent},
+      {path : "", component:ProductsComponent},
       {path : "login", component:LoginComponent},
       {path : "shopping-cart", component:ShoppingCartComponent},
       {path : "check-out", component:CheckoutComponent, canActivate:[ AuthGuard ]},
