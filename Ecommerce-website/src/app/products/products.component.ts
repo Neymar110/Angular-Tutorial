@@ -15,7 +15,6 @@ import { CategoryModel } from '../models/category.model';
 export class ProductsComponent {
   products$:ProductModel[] = [];
   filteredProducts : any;
-  categories$ : any;
   category : string | null;
   
   constructor(route : ActivatedRoute, productService : ProductService, categoryService : CategoryService) {
@@ -34,21 +33,8 @@ export class ProductsComponent {
       });
     })
 
-    this.categories$ = categoryService.getCategories().subscribe(data => {
-      this.categories$ = data.map(values => {
-        return {
-          $key: values.key,
-          ...values.payload.val() as CategoryModel
-        }
-      })
-    });
-
     
-    route.queryParamMap.subscribe(params => {
-      this.category = params.get("category");
-      this.filteredProducts = (this.category) ? 
-        this.products$.filter(p => p.category === this.category) : this.filteredProducts = this.products$;
-    });
+    
 
   }
   

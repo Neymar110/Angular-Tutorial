@@ -35,6 +35,8 @@ import { MatTableModule } from '@angular/material/table';
 import { AngularMaterialTableComponent } from './angular-material-table/angular-material-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { MatSortModule } from '@angular/material/sort';
     TestDirectiveDirective,
     ProductValidatorDirective,
     ImageUrlValidatorDirective,
-    AngularMaterialTableComponent
+    AngularMaterialTableComponent,
+    ProductFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,

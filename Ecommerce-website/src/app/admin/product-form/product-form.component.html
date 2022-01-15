@@ -42,22 +42,7 @@
             <button type = "button"  class = "button is-danger" (click) = "delete()">Delete</button>
     </form>
 
-    <div *ngIf = "product.title" class="card column auto">
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img [src]="imageUrl.value">
-          </figure>
-        </div>
-        <div class="card-content">
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-4">{{ title.value }}</p>
-              <p class="subtitle is-6">{{ price.value | currency:"USD":'symbol-narrow'}}</p>
-            </div>
-          </div>
-          <footer class="card-footer">
-            <button>Save</button>
-            <button type = "button"  class = "button is-danger" (click) = "delete()">Delete</button>
-          </footer>
+    <div class="card column auto">
+        <product-card [product] = "product" [show-actions]="false"></product-card>
         </div>
 </div>
