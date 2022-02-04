@@ -7,7 +7,6 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 
-// import { AppUser } from './models/app-user';
 import { UserService } from './user.service';
 import { AppUser } from './models/app-user';
 

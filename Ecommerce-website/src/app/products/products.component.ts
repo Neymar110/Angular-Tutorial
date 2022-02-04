@@ -1,28 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
-import { ProductModel } from '../models/product-model.model';
+import { Product } from '../models/product';
 import { CategoryService } from '../category.service';
 import { ActivatedRoute } from '@angular/router';
-import { CategoryModel } from '../models/category.model';
+import { ShoppingCartService } from '../shopping-cart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
-  products$:ProductModel[] = [];
+export class ProductsComponent implements OnInit, OnDestroy{
+  products$:Product[] = [];
   filteredProducts : any;
   category : string | null;
+  cart : any;
+  subscription : Subscription;
+
+  constructor(
+    route : ActivatedRoute, 
+    productService : ProductService, 
+    private shoppingCartService : ShoppingCartService
+    ){
+
   
-  constructor(route : ActivatedRoute, productService : ProductService, categoryService : CategoryService) {
+
+    
     productService.getAll().subscribe(data => {
       this.products$ = data.map(values => {
         return {
           key: values.key,
-          ...values.payload.val() as ProductModel
+          ...values.payload.val() as Product
         }
       })
 
@@ -32,11 +41,18 @@ export class ProductsComponent {
           this.products$.filter(p => p.category === this.category) : this.filteredProducts = this.products$;
       });
     })
-
-    
-    
-
+  }
+  async ngOnInit(){
+    this.subscription = (await this.shoppingCartService.getCart())
+    .subscribe(cart => {
+      this.cart = cart
+      console.log('DB cart is:', cart, 'and this.cart is: ', this.cart);
+    })
   }
   
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
 
 }
+

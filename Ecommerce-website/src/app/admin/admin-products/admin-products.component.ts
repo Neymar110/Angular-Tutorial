@@ -1,9 +1,8 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ProductService } from 'src/app/product.service';
-import { ProductModel } from 'src/app/models/product-model.model';
-import { MatPaginator } from '@angular/material/paginator';
 import { Product } from 'src/app/models/product';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -22,10 +21,10 @@ export class AdminProductsComponent implements OnDestroy{
 
   constructor(private productService :  ProductService) {
     this.subscription = this.productService.getAll().subscribe(data => {
-      this.filteredProducts = this.products = data.map(x => {
+      this.filteredProducts = data.map(x => {
        return {
          key: x.payload.key,
-         ...x.payload.val() as ProductModel
+         ...x.payload.val() as Product
        }        
       })
 

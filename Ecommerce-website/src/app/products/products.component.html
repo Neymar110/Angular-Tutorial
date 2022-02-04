@@ -6,6 +6,6 @@
         <div 
         *ngFor = "let p of filteredProducts"
         class="column card is-one-third">
-            <product-card [product] = "p"></product-card>
+            <product-card [product] = "p" [shopping-cart] = "cart"></product-card>
         </div>
 </div>

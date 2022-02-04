@@ -4,7 +4,7 @@ import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { CategoryService } from 'src/app/category.service';
 import { ProductService } from 'src/app/product.service';
 import { take } from 'rxjs/operators';
-import { ProductModel } from 'src/app/models/product-model.model';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-form',
@@ -19,6 +19,7 @@ export class ProductFormComponent {
     title: "",
     imageUrl: "",
     category: "",
+    $key : ""
   };
   id:any;
 
@@ -38,7 +39,7 @@ export class ProductFormComponent {
     this.id = this.route.snapshot.paramMap.get("id");
     
     if (this.id) {
-      this.productService.getProduct(this.id).pipe(take(1)).subscribe(p => this.product = p as ProductModel)
+      this.productService.getProduct(this.id).pipe(take(1)).subscribe(p => this.product = p as Product)
     }
   }
 
