@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Product } from './models/product';
 import { ShoppingCart } from './models/shopping-cart';
-
+import { ShoppingCartItem } from "./models/shopping-cart-item"
 @Injectable({
   providedIn: 'root'
 })
@@ -26,10 +26,9 @@ export class ShoppingCartService {
     let cart = this.db.object("/shopping-carts/" + cartId);
 
     return cart.valueChanges()
-    .pipe(map(x => {
-      let newX = x as ShoppingCart
-      let items = newX.items
-      return new ShoppingCart(items)
+    .pipe(map(x => {      
+      let newX = x as ShoppingCart      
+      return newX
     }))
   }
 

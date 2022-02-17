@@ -16,7 +16,7 @@
       <div class="navbar-start">  
         <a class="navbar-item" routerLink="/shopping-cart">
           Shopping Cart
-          <span *ngIf = "cart$ | async as cart"class="tag is-warning is-rounded" >{{ cart.totalItemsCount }}</span>
+          <span *ngIf = "cart" class="tag is-warning is-rounded" >{{ totalItemsCount }}</span>
         </a>
         <ng-template #anonymousUser >
           <a class="navbar-item" routerLink="/login">

@@ -12,7 +12,8 @@ import { ShoppingCartService } from '../shopping-cart.service';
 })
 export class BNavbarComponent implements OnInit{
   appUser: any;
-  cart$ : Observable<ShoppingCart | null>;
+  cart$ : Observable<ShoppingCart>;
+  cart: any
 
 
   constructor(private auth : AuthService, private shoppingCartService : ShoppingCartService) {     
@@ -34,13 +35,28 @@ export class BNavbarComponent implements OnInit{
     this.cart$ = await this.shoppingCartService.getCart()
     
     this.cart$.subscribe(data => {
-      // console.log("Nav Observable data: ", data);
+      if(data){
+        this.cart = Object.values(data.items);
+      }
+      else {
+        this.cart = null
+      }
+      // console.log(this.cart.totalItemsCount);
+      
     })
   }
 
   logout(){
     this.auth.logout();
     this.appUser = null;
+  }
+
+  get totalItemsCount() {
+    let count = 0
+    for(let item of this.cart){
+      count += item.quantity
+    }
+    return count
   }
 
 }
