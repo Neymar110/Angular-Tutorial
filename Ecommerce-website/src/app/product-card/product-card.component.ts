@@ -12,7 +12,7 @@ export class ProductCardComponent {
   @Input('show-actions') showActions : boolean = true;
   @Input('shopping-cart') set shopping_cart(cart: any){
     this.shoppingCart = cart;
-    console.log(this.getQuantity())
+    // console.log(this.shoppingCart.items['-KrqgOLs07ZkbapP4EGi'].quantity)
   };
 
   shoppingCart:any
@@ -28,8 +28,8 @@ export class ProductCardComponent {
     }
 
     getQuantity(){
-      if(!this.shoppingCart) return 1;
-      let item = this.shoppingCart.items[this.product.key];      
+      if(!this.shoppingCart) return 0;
+      let item = this.shoppingCart.items[this.product.key];
       return item ? item.quantity : 0;
     }
 

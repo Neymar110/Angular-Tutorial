@@ -17,6 +17,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
   category : string | null;
   cart : any;
   subscription : Subscription;
+  // p:any;
 
   constructor(
     route : ActivatedRoute, 
@@ -46,7 +47,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
     this.subscription = (await this.shoppingCartService.getCart())
     .subscribe(cart => {
       this.cart = cart
-      console.log('DB cart is:', cart, 'and this.cart is: ', this.cart);
+      // console.log('DB cart is:', cart, 'and this.cart is: ', this.cart);
     })
   }
   

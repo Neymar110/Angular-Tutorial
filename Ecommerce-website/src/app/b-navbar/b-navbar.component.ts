@@ -17,6 +17,7 @@ export class BNavbarComponent implements OnInit{
 
   constructor(private auth : AuthService, private shoppingCartService : ShoppingCartService) {     
     // He prefers to have all the initialization of things in one place at a time. i.e Constructor or NgOnInit
+    // this.shoppingCartService.getCart().then(this.getCart)
   }
 
   async ngOnInit() {
@@ -26,9 +27,15 @@ export class BNavbarComponent implements OnInit{
       });
     });
 
+    this.getCart()
+  }
+
+  async getCart() {
     this.cart$ = await this.shoppingCartService.getCart()
     
-
+    this.cart$.subscribe(data => {
+      // console.log("Nav Observable data: ", data);
+    })
   }
 
   logout(){
