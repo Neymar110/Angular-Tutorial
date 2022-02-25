@@ -2,13 +2,16 @@ import { Component, Input } from '@angular/core';
 import { ShoppingCartService } from '../shopping-cart.service';
 
 @Component({
-  selector: 'product-card',
-  templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.css']
+  selector: 'product-quantity',
+  templateUrl: './product-quantity.component.html',
+  styleUrls: ['./product-quantity.component.css']
 })
-export class ProductCardComponent{
-  @Input('product') product:any;
-  @Input('show-actions') showActions : boolean = true;
+export class ProductQuantityComponent{
+  @Input('product') set prod(prod: any){
+    this.product = prod
+  };
+
+  product: any
   @Input('shopping-cart') set shopping_cart(cart: any){
     this.shoppingCart = cart;
   };
@@ -25,9 +28,8 @@ export class ProductCardComponent{
     }
 
     getQuantity(){
-      // console.log(this.product);
+      if(!this.shoppingCart) return 0;
       
-      if(!this.shoppingCart) return 0;  
       let item = this.shoppingCart.items[this.product.key];   
       return item ? item.quantity : 0;
     }

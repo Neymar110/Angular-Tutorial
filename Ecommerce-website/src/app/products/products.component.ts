@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Product } from '../models/product';
-import { CategoryService } from '../category.service';
 import { ActivatedRoute } from '@angular/router';
 import { ShoppingCartService } from '../shopping-cart.service';
 import { Subscription } from 'rxjs';
@@ -47,6 +46,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
     this.subscription = (await this.shoppingCartService.getCart())
     .subscribe(cart => {
       this.cart = cart
+      // console.log(cart)
       // console.log('DB cart is:', cart, 'and this.cart is: ', this.cart);
     })
   }

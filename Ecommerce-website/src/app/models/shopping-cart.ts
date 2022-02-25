@@ -4,7 +4,11 @@ export class ShoppingCart{
   items: ShoppingCartItem[] = [];
     constructor(public itemsMap : { [productId : string]: ShoppingCartItem }) {
       for (let productId in itemsMap){
-        this.items.push(itemsMap[productId])
+        let item = itemsMap[productId]
+        let x = new ShoppingCartItem()
+        Object.assign(x, item)
+        x.$key = productId;
+        this.items.push(x)
       }
     }
 
