@@ -3,7 +3,9 @@ import { Subscription } from 'rxjs';
 import { ShoppingCart } from '../models/shopping-cart';
 import { ShoppingCartService } from '../shopping-cart.service';
 import { OrderService } from '../order.service';
-import { map } from 'rxjs/operators';
+import { AuthService } from '../auth.service';
+import { Order } from '../models/order';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'check-out',
@@ -18,44 +20,33 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     city: "",
   };
   // shipping: any 
-  cart : ShoppingCart
-  subscription : Subscription
-  name: any
+  cart : ShoppingCart;
+  cartSubscription : Subscription;
+  userSubscription : Subscription;
+  name: any;
+  userId : string;
 
   constructor(
+    private router : Router,
     private shoppingCartService  : ShoppingCartService, 
-    private orderService : OrderService){}
+    private orderService : OrderService,
+    private authService : AuthService){}
   
-  placeOrder() {
-    // console.log(this.cart);
-    
-    let orderItems = Object.values(this.cart.items)    
-    
-    let order = {
-      datePlaced : new Date().getTime(),
-      shipping:this.shipping,      
-      items: orderItems
-      .map(i => {
-        return {
-          product : {
-            title : i.title,
-            imageUrl : i.imageUrl,
-            price : i.price
-          },
-            quantity : i.quantity,
-            totalPrice : i.quantity * i.price
-        }
-      })
-    }    
-    this.orderService.storeOrder(order)
+  async placeOrder() {
+    let order = new Order(this.userId, this.shipping, this.cart);
+    let result = await this.orderService.placeOrder(order);
+    this.router.navigate(["order-success", result.key])
   }    
 
   async ngOnInit() {
     let cart$ = await this.shoppingCartService.getCart();
-    this.subscription = cart$ .subscribe(cart => this.cart = cart)
-  }
+    this.cartSubscription = cart$.subscribe(cart => this.cart = cart)
+    this.userSubscription = this.authService.user$.subscribe(user => this.userId = user.uid)
+}
 
   ngOnDestroy(){
-    this.subscription.unsubscribe();
+    this.cartSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
+
 }
