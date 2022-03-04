@@ -1,6 +1,6 @@
 <div class="columns fullWidth ">
     <div class="column">
-        <button *ngIf = "getQuantity() > 0" (click) = "removeFromCart()"  class = "button is-light is-fullwidth">-</button>
+        <button (click) = "removeFromCart()"  class = "button is-light is-fullwidth">-</button>
     </div>
     <div class = "column">
         <div class = "has-text-centered">{{ getQuantity() }} in cart</div>

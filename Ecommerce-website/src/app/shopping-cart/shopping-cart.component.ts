@@ -17,7 +17,7 @@ export class ShoppingCartComponent implements OnInit {
   displayCart: any
   cart: any
 
-  constructor(private shoppingCartService : ShoppingCartService, private productService : ProductService) { }
+  constructor(private shoppingCartService : ShoppingCartService, private productService : ProductService, private router: Router) { }
 
   async ngOnInit() {
     this.cart$ = await this.shoppingCartService.getCart();
@@ -26,7 +26,6 @@ export class ShoppingCartComponent implements OnInit {
 
   async getCart() {    
     this.cartSubscription = this.cart$.subscribe(data => {
-      // console.log(Object.values(data.items))
       if (data){
         this.cart = data
         this.displayCart = Object.values(data.items);
@@ -44,6 +43,9 @@ export class ShoppingCartComponent implements OnInit {
           index++;
         }
       }
+      else{
+        this.displayCart = []
+      }
     })
   }
 
@@ -56,10 +58,15 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   create_order(){
-    this.cartSubscription.unsubscribe();
-    this.productService.create_order(this.displayCart);
-    let cartId = localStorage.getItem("cartId");
-    this.shoppingCartService.delete_shopping_cart(cartId)
-    console.log("Order created and shopping cart deleted.")
+    // this.cartSubscription.unsubscribe();
+    // this.productService.create_order(this.displayCart);
+    // let cartId = localStorage.getItem("cartId");
+    // this.shoppingCartService.delete_shopping_cart(cartId)
+    // this.router.navigate(['/check-out']);
+    // console.log("Order created and shopping cart deleted.")
+  }
+
+  clearCart(){
+    this.shoppingCartService.clearCart();
   }
 }

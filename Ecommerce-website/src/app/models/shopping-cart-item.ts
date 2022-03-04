@@ -7,4 +7,15 @@ export class ShoppingCartItem {
     quantity : number;
     price: number;
     $key:string;
+
+    get totalPrice(){
+        return this.price * this.quantity
+    }
+
+    constructor(init?:Partial<ShoppingCartItem>){
+        Object.assign(this, init);
+    }
+    
+    
+    
 }

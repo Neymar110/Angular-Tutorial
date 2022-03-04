@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { ShoppingCart } from '../models/shopping-cart';
@@ -16,7 +17,7 @@ export class BNavbarComponent implements OnInit{
   cart: any
 
 
-  constructor(private auth : AuthService, private shoppingCartService : ShoppingCartService) {     
+  constructor(private auth : AuthService, private shoppingCartService : ShoppingCartService, private router : Router) {     
     // He prefers to have all the initialization of things in one place at a time. i.e Constructor or NgOnInit
     // this.shoppingCartService.getCart().then(this.getCart)
   }
@@ -49,6 +50,7 @@ export class BNavbarComponent implements OnInit{
   logout(){
     this.auth.logout();
     this.appUser = null;
+    this.router.navigate(['/'])
   }
 
   get totalItemsCount() {
