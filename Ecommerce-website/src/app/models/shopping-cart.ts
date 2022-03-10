@@ -15,7 +15,6 @@ export class ShoppingCart{
         for (let productId in this.itemsMap){
           count += this.itemsMap[productId].quantity
         }
-          
         
         console.log(count);
         

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ShoppingCart } from '../models/shopping-cart';
 
 @Component({
@@ -7,11 +7,28 @@ import { ShoppingCart } from '../models/shopping-cart';
   styleUrls: ['./shopping-cart-summary.component.css']
 })
 export class ShoppingCartSummaryComponent {
-  @Input('cart') cart : ShoppingCart
-  // cartArray : any;
-  // constructor() { 
-  //   this.cartArray = Object.values(this.cart.items)
-  // }
+  @Input('cart') set cartData(data) {
+    if(data){
+      this.cart = data;
+      // console.log(this.cart);
+      
+      this.cart['totalPrice'] = 0;
+      for(let item of this.cart){
+        let totalPrice = item.price * item.quantity;
+        
+        this.cart['totalPrice'] += totalPrice;
+        item['totalPrice'] = totalPrice;
+      }
+    }
+  };  
 
-  
+  cart: any
+
+  get totalItemsCount() {
+    let count = 0
+    for(let item of this.cart){
+      count += item.quantity
+    }
+    return count
+  }
 }

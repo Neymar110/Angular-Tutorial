@@ -1,18 +1,29 @@
 <div class="card">
-    <div class="card-content">
+    <div class="card-content" *ngIf="cart">
       <div class="media">
         <div class="media-content">
-          <p class="title is-4">You have 0 items in your shopping cart</p>
+          <p class="title is-4" >You have {{ totalItemsCount }} items in your shopping cart</p>
         </div>
       </div>
-  
-        <div class="content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Phasellus nec iaculis mauris.
-        </div>
-        <ul>
-            <li >
-            </li>
-        </ul>
+      <!-- <div class = "content">
+          <ul *ngFor = "let item of cart">
+              <li>
+                {{ item.quantity }} x {{ item.title }}
+              </li>
+              <div>
+                {{ item.totalPrice | currency :"USD" }}
+              </div>
+          </ul>
+      </div> -->
+      <table class="table is-bordered is-fullwidth is-hoverable"  >
+        <tr *ngFor = "let item of cart">
+          <td> {{ item.quantity }} x {{ item.title }} <span style ="float: right;">{{ item.price  | currency:"USD"}}</span> </td>
+        </tr>
+        <tr>
+          <td class = "has-text-weight-bold">
+            Total: <span style = "float: right;">{{ cart.totalPrice | currency:"USD" }}</span>
+          </td>
+        </tr>
+      </table>
     </div>
 </div>

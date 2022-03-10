@@ -25,6 +25,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
   userSubscription : Subscription;
   name: any;
   userId : string;
+  displayCart : any;
 
   constructor(
     private router : Router,
@@ -40,7 +41,11 @@ export class CheckOutComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     let cart$ = await this.shoppingCartService.getCart();
-    this.cartSubscription = cart$.subscribe(cart => this.cart = cart)
+
+    this.cartSubscription = cart$.subscribe(cart => {
+      this.displayCart = Object.values(cart.items);
+      this.cart = cart;
+    })
     this.userSubscription = this.authService.user$.subscribe(user => this.userId = user.uid)
 }
 
