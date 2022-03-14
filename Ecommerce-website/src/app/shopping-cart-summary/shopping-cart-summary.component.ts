@@ -9,19 +9,15 @@ import { ShoppingCart } from '../models/shopping-cart';
 export class ShoppingCartSummaryComponent {
   @Input('cart') set cartData(data) {
     if(data){
-      this.cart = data;
-      // console.log(this.cart);
-      
+      this.cart = Object.values(data.items) 
       this.cart['totalPrice'] = 0;
       for(let item of this.cart){
         let totalPrice = item.price * item.quantity;
-        
         this.cart['totalPrice'] += totalPrice;
         item['totalPrice'] = totalPrice;
       }
-    }
-  };  
-
+      }
+    }  
   cart: any
 
   get totalItemsCount() {
