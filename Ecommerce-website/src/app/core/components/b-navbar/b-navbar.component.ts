@@ -7,7 +7,7 @@ import { ShoppingCartService } from 'shared/service/shopping-cart.service';
 
 
 @Component({
-  selector: 'b-navbar',
+  selector: 'bNavbar',
   templateUrl: './b-navbar.component.html',
   styleUrls: ['./b-navbar.component.css']
 })

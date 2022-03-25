@@ -20,19 +20,21 @@ export class AdminProductsComponent implements OnDestroy{
 
   constructor(private productService :  ProductService) {
     this.subscription = this.productService.getAll().subscribe(data => {
-      this.filteredProducts = data.map(x => {
+      this.products = data.map(x => {
        return {
          key: x.payload.key,
          ...x.payload.val() as Product
        }        
       })
-
+      this.filteredProducts = this.products
       // this.dataSource = new MatTableDataSource(this.filteredProducts);
       // this.dataSource.paginator = this.paginator;
     });
   }
 
   filter(query:string){
+    // console.log(query);
+    // console.log(this.products);
     this.filteredProducts = (query)?
       this.products.filter(p => p.title.toLowerCase().includes(query.toLowerCase())) :this.products;
       
